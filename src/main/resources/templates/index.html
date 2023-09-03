@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Security - SAML 2.0 Login</title>
+    <style>
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .form-container {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .logout-btn {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        .user-name {
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="form-container">
+        <form th:action="@{/logout}" method="post">
+            <button class="logout-btn" type="submit">Logout</button>
+        </form>
+    </div>
+    <h1>Successful SAML Login</h1>
+    <p class="user-info">You are successfully logged in as <span sec:authentication="name" class="user-name"></span></p>
+</div>
+
+<h1 class="text-center">Notes List</h1>
+<hr />
+<p th:text="|Happy ${today}|">Today</p>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Actions</th>
+        <th>Id</th>
+        <th>Description</th>
+        <th>Complete</th>
+        <th>Created Date</th>
+        <th>Modified Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${noteItems}" th:class="${item.complete} ? success : warning">
+        <td>
+            <div class="btn btn-group-sm" role="group">
+                <a class="btn btn-info" th:href="@{/edit/{id}(id=${item.id})}">Edit</a>
+                <a class="btn btn-danger" th:href="@{/delete/{id}(id=${item.id})}">Delete</a>
+            </div>
+        </td>
+        <td th:text="${item.id}">item_id</td>
+        <td th:text="${item.description}">item_description</td>
+        <td th:text="${item.complete}">item_complete</td>
+        <td th:text="${item.createdDate}">item_created_date</td>
+        <td th:text="${item.modifiedDate}">item_modified_date</td>
+    </tr>
+    </tbody>
+</table>
+
+<p><a class="btn btn-success" href="/create-note">Add a Note!</a></p>
+</body>
+</html>
