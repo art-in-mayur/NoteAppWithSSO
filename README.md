@@ -18,11 +18,12 @@ Before you begin, ensure you have met the following requirements:
 
 Access the application at http://localhost:8443
 
-##Usage
+## Usage
 
+Configure SAML parameters in properties file.
 Create a new account or log in using your IDP credentials with SAML Single Sign-On.
 Start creating and managing your notes securely.
 
-##License
+## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
